@@ -66,6 +66,34 @@ class CoursesController < ApplicationController
     @theparams=params
   end
 
+  def credit#add credit method
+
+    @course_isdegree=current_user.courses.where("degree= ?", true)
+    @credit_isdegree=0
+    @credit_nodegree=0
+    @course_isdegree.each do |course|
+      @credit_isdegree=@credit_isdegree + course.credit.to_i
+    end
+    @credit_isdegree=@credit_isdegree/20
+
+    @course_nodegree=current_user.courses.where("degree= ?", false)
+    @course_nodegree.each do |course|
+      @credit_nodegree=@credit_nodegree + course.credit.to_i
+    end
+    @credit_nodegree=@credit_nodegree/20
+  end
+
+  def isdegree #add isdegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: true)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为学位课"}
+  end
+
+  def nodegree #add nodegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: false)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为非学位课"}
+  end
   def select
     @course=Course.find_by_id(params[:id])
     current_user.courses<<@course
