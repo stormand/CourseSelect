@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7b1c0f9-5303-4042-90a5-05cecbda0e94" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/uploaders/avatar_uploader.rb" afterPath="$PROJECT_DIR$/app/uploaders/avatar_uploader.rb" />
-    </list>
+    <list default="true" id="d7b1c0f9-5303-4042-90a5-05cecbda0e94" name="Default" comment="" />
     <ignored path="vim.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -35,7 +32,7 @@
       <file leaf-file-name="index.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/homes/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="288">
               <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
               <folding />
             </state>
@@ -112,7 +109,7 @@
       <file leaf-file-name="avatar_uploader.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/uploaders/avatar_uploader.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-45">
+            <state relative-caret-position="330">
               <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
               <folding />
             </state>
@@ -237,6 +234,7 @@
         <subPane />
       </pane>
       <pane id="RailsProjectView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -387,7 +385,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -642,6 +639,7 @@
       <workItem from="1479900001385" duration="4573000" />
       <workItem from="1479904669591" duration="466000" />
       <workItem from="1479905211350" duration="896000" />
+      <workItem from="1481105344454" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="增加课程介绍，首页轮播的外观搭建">
       <created>1478067100340</created>
@@ -661,7 +659,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70674000" />
+    <option name="totallyTimeSpent" value="70687000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -676,7 +674,7 @@
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23386651" sideWeight="0.4858757" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23607281" sideWeight="0.4858757" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34751773" sideWeight="0.5156082" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -884,7 +882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -990,7 +987,7 @@
     <entry file="file://$PROJECT_DIR$/db/migrate/20161113072827_add_open_attribute.rb" />
     <entry file="file://$PROJECT_DIR$/app/views/homes/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="288">
           <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
           <folding />
         </state>
@@ -1011,7 +1008,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/uploaders/avatar_uploader.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45">
+        <state relative-caret-position="330">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
           <folding />
         </state>
