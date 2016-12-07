@@ -64,9 +64,29 @@ class CoursesController < ApplicationController
     @course_open=Course.where("open = ?", true)-current_user.courses
     @course_close=@course-@course_open
     @theparams=params
+    @credit_isdegree, @credit_nodegree=cal_degree
 
   end
 
+  def credit#add credit method
+
+    @course_isdegree=current_user.courses.where("degree= ?", true)
+    @course_nodegree=current_user.courses.where("degree= ?", false)
+    @credit_isdegree, @credit_nodegree=cal_degree
+
+  end
+
+  def isdegree #add isdegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: true)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为学位课"}
+  end
+
+  def nodegree #add nodegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: false)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为非学位课"}
+  end
   def select
     @course=Course.find_by_id(params[:id])
     if !@course.limit_num.nil? && @course.limit_num!=0
@@ -109,6 +129,20 @@ class CoursesController < ApplicationController
   def index
     @course=current_user.teaching_courses if teacher_logged_in?
     @course=current_user.courses if student_logged_in?
+    @credit_isdegree, @credit_nodegree=cal_degree
+  end
+
+  def cal_degree
+    @credit_isdegree=0
+    @credit_nodegree=0
+    current_user.courses.each do |course|
+      if course.degree
+        @credit_isdegree=@credit_isdegree + course.credit.sub(/\d+\// , "").to_i
+      else
+        @credit_nodegree=@credit_nodegree + course.credit.sub(/\d+\// , "").to_i
+      end
+    end
+    return @credit_isdegree, @credit_nodegree
   end
 
 
