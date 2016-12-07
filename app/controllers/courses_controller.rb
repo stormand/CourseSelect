@@ -67,16 +67,29 @@ class CoursesController < ApplicationController
 
   def select
     @course=Course.find_by_id(params[:id])
-    if(@course.student_num < @course.limit_num)
-      current_user.courses<<@course
-      @course.student_num+=1
-      @course.update_attributes(:student_num=>@course.student_num)
-      flash={:success => "成功选择课程: #{@course.name}"}
-      redirect_to courses_path, flash: flash
+    if !@course.limit_num.nil?
+      if(@course.student_num < @course.limit_num)
+        current_user.courses<<@course
+        @course.student_num+=1
+        @course.update_attributes(:student_num=>@course.student_num)
+        flash={:success => "成功选择课程: #{@course.name}"}
+        redirect_to courses_path, flash: flash
+      else
+        flash={:sucess => "选课人数已满: #{@course.name}"}
+        @course=Course.all
+        @course_open=Course.where(:open=>true)
+        @course_open=@course_open-current_user.courses
+        redirect_to list_courses_path, flash: flash
+      end
     else
-      flash={:sucess => "选课人数已满: #{@course.name}"}
-      redirect_to courses_path, flash: flash
+      current_user.courses<<@course
+        @course.student_num+=1
+        @course.update_attributes(:student_num=>@course.student_num)
+        flash={:success => "成功选择课程: #{@course.name}"}
+        redirect_to courses_path, flash: flash
     end
+
+        
   end
 
   def quit
