@@ -88,7 +88,28 @@ class CoursesController < ApplicationController
     redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为非学位课"}
   end
   def select
+    @allcourse=current_user.courses
     @course=Course.find_by_id(params[:id])
+
+    @allcourse.each do |k|
+      if(k.course_week.nil?||@course.course_week.nil?)
+        next
+      else
+        week1 = (@course.course_week[0,1].to_i..@course.course_week[3,@course.course_week.length-1].to_i).to_a
+        week2 = (k.course_week[0,1].to_i..k.course_week[3,k.course_week.length-1].to_i).to_a
+        time1 = (@course.course_time[3].to_i..@course.course_time[5,@course.course_time.length-1].to_i).to_a
+        time2 = (k.course_time[3].to_i..k.course_time[5,k.course_time.length-1].to_i).to_a
+        weekn1=@course.course_time[2]
+        weekn2=k.course_time[2]
+      
+        if (week1 & week2)!=[] && (time1 & time2)!=[] && weekn1==weekn2
+          flash={:sucess => "选课时间冲突: #{@course.name}"}
+          redirect_to list_courses_path, flash: flash
+          return
+        end
+      end
+   end
+
     if !@course.limit_num.nil? && @course.limit_num!=0
       if(@course.student_num < @course.limit_num)
         current_user.courses<<@course
@@ -104,14 +125,12 @@ class CoursesController < ApplicationController
         redirect_to list_courses_path, flash: flash
       end
     else
-      current_user.courses<<@course
+       current_user.courses<<@course
         @course.student_num+=1
         @course.update_attributes(:student_num=>@course.student_num)
         flash={:success => "成功选择课程: #{@course.name}"}
         redirect_to courses_path, flash: flash
-    end
-
-        
+    end     
   end
 
   def quit
@@ -215,7 +234,4 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:course_code, :avatar, :name, :course_type, :teaching_type, :exam_type,
                                    :credit, :limit_num, :class_room, :course_time, :course_week, :course_introduction)
   end
-
-
-
 end
