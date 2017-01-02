@@ -61,20 +61,64 @@ class CoursesController < ApplicationController
 
   def list
     @course=Course.all
-    @course_open=Course.where("open = ?", true)
-    @course_open=@course_open-current_user.courses
+    @course_open=Course.where("open = ?", true)-current_user.courses
+    @course_close=@course-@course_open
+    @theparams=params
+    @credit_isdegree, @credit_nodegree=cal_degree
+
   end
 
+  def credit#add credit method
+
+    @course_isdegree=current_user.courses.where("degree= ?", true)
+    @course_nodegree=current_user.courses.where("degree= ?", false)
+    @credit_isdegree, @credit_nodegree=cal_degree
+
+  end
+
+  def isdegree #add isdegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: true)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为学位课"}
+  end
+
+  def nodegree #add nodegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: false)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为非学位课"}
+  end
   def select
     @course=Course.find_by_id(params[:id])
-    current_user.courses<<@course
-    flash={:success => "成功选择课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
+    if !@course.limit_num.nil? && @course.limit_num!=0
+      if(@course.student_num < @course.limit_num)
+        current_user.courses<<@course
+        @course.student_num+=1
+        @course.update_attributes(:student_num=>@course.student_num)
+        flash={:success => "成功选择课程: #{@course.name}"}
+        redirect_to courses_path, flash: flash
+      else
+        flash={:danger => "选课人数已满: #{@course.name}"}
+        @course=Course.all
+        @course_open=Course.where(:open=>true)
+        @course_open=@course_open-current_user.courses
+        redirect_to list_courses_path, flash: flash
+      end
+    else
+      current_user.courses<<@course
+        @course.student_num+=1
+        @course.update_attributes(:student_num=>@course.student_num)
+        flash={:success => "成功选择课程: #{@course.name}"}
+        redirect_to courses_path, flash: flash
+    end
+
+        
   end
 
   def quit
     @course=Course.find_by_id(params[:id])
     current_user.courses.delete(@course)
+    @course.student_num-=1
+    @course.update_attributes(:student_num=>@course.student_num)
     flash={:success => "成功退选课程: #{@course.name}"}
     redirect_to courses_path, flash: flash
   end
@@ -85,6 +129,20 @@ class CoursesController < ApplicationController
   def index
     @course=current_user.teaching_courses if teacher_logged_in?
     @course=current_user.courses if student_logged_in?
+    @credit_isdegree, @credit_nodegree=cal_degree
+  end
+
+  def cal_degree
+    @credit_isdegree=0
+    @credit_nodegree=0
+    current_user.courses.each do |course|
+      if course.degree
+        @credit_isdegree=@credit_isdegree + course.credit.sub(/\d+\// , "").to_i
+      else
+        @credit_nodegree=@credit_nodegree + course.credit.sub(/\d+\// , "").to_i
+      end
+    end
+    return @credit_isdegree, @credit_nodegree
   end
 
 
@@ -92,6 +150,42 @@ class CoursesController < ApplicationController
     @course=Course.find_by_id(params[:id])
   end
 
+  def search
+    temp="%"+params[:name]+"%"
+    @theparams=Course.find_by_id(1)
+    @course=Course.all
+    @course_open=Course.where("name like ? AND open =?", temp ,true)
+    @course_close=Course.where("name like ? AND open =?", temp ,false)
+
+    if params[:teaching_type]!=""
+        @course_open=@course_open.where("teaching_type =?", params[:teaching_type])
+        @course_close=@course_close.where("teaching_type =?", params[:teaching_type])
+    end
+    if params[:course_type]!=""
+      @course_open=@course_open.where("course_type =?", params[:course_type])
+      @course_close=@course_close.where("course_type =?", params[:course_type])
+    end
+    if params[:credit]!=""
+      @course_open=@course_open.where("credit =?", params[:credit])
+      @course_close=@course_close.where("credit =?", params[:credit])
+    end
+    if params[:exam_type]!=""
+      @course_open=@course_open.where("exam_type =?", params[:exam_type])
+      @course_close=@course_close.where("exam_type =?", params[:exam_type])
+    end
+    @course_open=@course_open-current_user.courses
+    @course_close=@course_close-current_user.courses
+    @theparams=params
+    render 'list'
+  end
+
+  def refresh_search
+    @course=Course.all
+    @course_open=Course.where("open = ?", true)-current_user.courses
+    @course_close=@course-@course_open
+    @theparams=params
+    render 'list'
+  end
 
   private
 

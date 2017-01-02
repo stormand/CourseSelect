@@ -2,7 +2,7 @@
 
 ##([本组的heroku展示地址](https://courseselectofstormand.herokuapp.com/))
 目前完成修改：
-* 首页显示所有的课程，与其相关属性。
+* 首页显示所有的课程，与其相关属性。aaa
 
 
 ### [中文教程1](http://blog.csdn.net/ppp8300885/article/details/52594839) [中文教程2](http://blog.csdn.net/ppp8300885/article/details/52601560) [中文教程3](http://blog.csdn.net/ppp8300885/article/details/52669749)
@@ -12,7 +12,7 @@
 
 适合新学者的入手的第一个项目 ([演示Demo戳这里](https://courseselect.herokuapp.com/ ))，入门者可以在这个样本系统上增加更多的功能:
 
-* 处理选课冲突、控制选课人数
+* 处理选课冲突、控制选课人数(finish)
 * 统计选课学分，学位课等
 * 增加选课的开放、关闭功能
 * 自定义管理员后台
