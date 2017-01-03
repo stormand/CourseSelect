@@ -63,11 +63,36 @@ class CoursesController < ApplicationController
     @course=Course.all
     @course_open=Course.where("open = ?", true)-current_user.courses
     @course_close=@course-@course_open
+    @course_display=@course
     @theparams=params
+    @credit_isdegree, @credit_nodegree=cal_degree
   end
+  
   def classtable
     @course=current_user.courses
   end
+
+  def credit#add credit method
+
+    @course_isdegree=current_user.courses.where("degree= ?", true)
+    @course_nodegree=current_user.courses.where("degree= ?", false)
+    @credit_isdegree, @credit_nodegree=cal_degree
+
+  end
+
+  def isdegree #add isdegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: true)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为学位课"}
+  end
+
+  def nodegree #add nodegree method
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(degree: false)
+    redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为非学位课"}
+  end
+
+
   def select
     @allcourse=current_user.courses
     @course=Course.find_by_id(params[:id])
@@ -129,6 +154,20 @@ class CoursesController < ApplicationController
   def index
     @course=current_user.teaching_courses if teacher_logged_in?
     @course=current_user.courses if student_logged_in?
+    @credit_isdegree, @credit_nodegree=cal_degree
+  end
+
+  def cal_degree
+    @credit_isdegree=0
+    @credit_nodegree=0
+    current_user.courses.each do |course|
+      if course.degree
+        @credit_isdegree=@credit_isdegree + course.credit.sub(/\d+\// , "").to_i
+      else
+        @credit_nodegree=@credit_nodegree + course.credit.sub(/\d+\// , "").to_i
+      end
+    end
+    return @credit_isdegree, @credit_nodegree
   end
 
 
@@ -138,29 +177,37 @@ class CoursesController < ApplicationController
 
   def search
     temp="%"+params[:name]+"%"
-    @theparams=Course.find_by_id(1)
     @course=Course.all
     @course_open=Course.where("name like ? AND open =?", temp ,true)
     @course_close=Course.where("name like ? AND open =?", temp ,false)
+    @course_display=Course.where("name like ? ", temp)
 
     if params[:teaching_type]!=""
         @course_open=@course_open.where("teaching_type =?", params[:teaching_type])
         @course_close=@course_close.where("teaching_type =?", params[:teaching_type])
+        @course_display=@course_display.where("teaching_type =?", params[:teaching_type])
     end
     if params[:course_type]!=""
       @course_open=@course_open.where("course_type =?", params[:course_type])
       @course_close=@course_close.where("course_type =?", params[:course_type])
+      @course_display=@course_display.where("course_type =?", params[:course_type])
     end
     if params[:credit]!=""
       @course_open=@course_open.where("credit =?", params[:credit])
       @course_close=@course_close.where("credit =?", params[:credit])
+      @course_display=@course_display.where("credit =?", params[:credit])
     end
     if params[:exam_type]!=""
       @course_open=@course_open.where("exam_type =?", params[:exam_type])
       @course_close=@course_close.where("exam_type =?", params[:exam_type])
+      @course_display=@course_display.where("exam_type =?", params[:exam_type])
     end
+
+    @course_display=@course_display
     @course_open=@course_open-current_user.courses
     @course_close=@course_close-current_user.courses
+
+
     @theparams=params
     render 'list'
   end
@@ -169,6 +216,7 @@ class CoursesController < ApplicationController
     @course=Course.all
     @course_open=Course.where("open = ?", true)-current_user.courses
     @course_close=@course-@course_open
+    @course_display=@course
     @theparams=params
     render 'list'
   end
