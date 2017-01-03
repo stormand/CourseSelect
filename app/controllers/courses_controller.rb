@@ -64,9 +64,10 @@ class CoursesController < ApplicationController
     @course_open=Course.where("open = ?", true)-current_user.courses
     @course_close=@course-@course_open
     @theparams=params
-
   end
-
+  def classtable
+    @course=current_user.courses
+  end
   def select
     @allcourse=current_user.courses
     @course=Course.find_by_id(params[:id])
