@@ -66,7 +66,10 @@ class CoursesController < ApplicationController
     @course_display=@course
     @theparams=params
     @credit_isdegree, @credit_nodegree=cal_degree
-
+  end
+  
+  def classtable
+    @course=current_user.courses
   end
 
   def credit#add credit method
@@ -88,6 +91,7 @@ class CoursesController < ApplicationController
     @course.update_attributes(degree: false)
     redirect_to courses_path,flash: {:success=> "已经成功将 #{@course.name} 选为非学位课"}
   end
+
 
   def select
     @allcourse=current_user.courses

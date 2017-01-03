@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-sm-2">
+      <%= render "shared/sidenav" %>
+    </div>
+
+    <div class="col-sm-10">
+
+      <div class="panel panel-primary filterable">
+        <div class="panel-heading">
+          <% if student_logged_in? %><h3 class="panel-title">已选课程</h3><% end %>
+        </div>
+        
+  
+        
+      <div class="container-fluid">
+        <table class= "table table-bordered">
+	       <caption>课程表</caption>
+            <thead>
+              <tr>
+                <td>    </td>
+                <td>周一</td>
+                <td>周二</td>
+                <td>周三</td>
+                <td>周四</td>
+                <td>周五</td>
+                <td>周六</td>
+                <td>周日</td>
+              </tr>
+            </thead>
+      </div>      
+             <tbody>
+               <%op="一二三四五六日"%>
+               <%k=Array[0,0,0,0,0,0,0]%>
+               <%for i in 1..11 %>
+                <tr><td> <%=i%> </td>
+                <%for m in 0..6%>
+                  <%k[m]=0%>
+                <%end%>
+                <%for j in 0..6 %>
+                  <% @course.each do |h| %>
+                    <%if(h.course_time.empty?)%>
+                      <%next%>
+                    <%end%>
+                    <%if(h.course_time[1]==op[j]&&h.course_time[3].to_i<=i&&h.course_time[5,h.course_time.length-1].to_i>=i)%>
+                      <td class="success",align="center"><%=h.name%></td>
+                      <%k[j]=1%>
+                    <%end%>
+                  <%end%>
+                  <%if k[j]==0%>
+                  <td><%"   "%></td>
+                  <%end%>
+                <%end%>
+                </tr>
+               <%end%>        
+             </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get :detail
       get :open
       get :close
+      get :classtable
       get :isdegree #add route isdegree
       get :nodegree #add route nodegree
     end
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
       get :search
       get :refresh_search
       get :credit #add credit route
-
     end
   end
 
