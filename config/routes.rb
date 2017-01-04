@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'excel/parse'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -24,9 +26,12 @@ Rails.application.routes.draw do
       get :detail
       get :open
       get :close
+      patch :excel_in
+      patch :excel_out
     end
     collection do
       get :list
+      get :excel
     end
   end
 
