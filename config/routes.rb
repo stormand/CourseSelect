@@ -26,15 +26,16 @@ Rails.application.routes.draw do
       get :detail
       get :open
       get :close
+      get :classtable
+      get :isdegree #add route isdegree
+      get :nodegree #add route nodegree
       patch :excel_in
       patch :excel_out
     end
     collection do
       get :list
       get :excel
-      get :classtable
-      get :isdegree #add route isdegree
-      get :nodegree #add route nodegree
+
     end
     collection do
       get :list

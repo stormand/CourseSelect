@@ -8,13 +8,12 @@
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">选修课程</h3>
-          <%= @theparams %>
         </div>
         <br>
         <%= form_tag("/courses/search", method: "get") do %>
             <%= link_to '', refresh_search_courses_path, :class => "btn btn-md  glyphicon glyphicon-refresh" %>
             <%= text_field_tag(:name, @theparams[:name] ) %>
-            <select name="credit" id="credit" multiple="multiple">
+            <select name="credit" id="credit">
               <option value="">所有课时学分</option>
               <% @course_display.select("credit").distinct.each do |ct| %>
                   <option value=<%= ct.credit %> <%= selected="selected" if @theparams[:credit]==ct.credit %>> * <%= ct.credit %></option>
