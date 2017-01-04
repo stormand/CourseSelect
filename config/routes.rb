@@ -32,6 +32,16 @@ Rails.application.routes.draw do
     collection do
       get :list
       get :excel
+      get :classtable
+      get :isdegree #add route isdegree
+      get :nodegree #add route nodegree
+    end
+    collection do
+      get :list
+      get :search
+      get :refresh_search
+      get :credit #add credit route
+
     end
   end
 
