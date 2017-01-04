@@ -57,6 +57,20 @@ class CoursesController < ApplicationController
     redirect_to courses_path, flash: {:success => "已经成功关闭该课程:#{ @course.name}"}
   end
 
+  def excel
+    @course= current_user.teaching_courses
+  end
+
+  def excel_in
+    @course = Course.find_by_id(params[:id])
+    if @course.update_attributes(course_params)
+      flash={:info => " 导入成功"}
+    else
+      flash={:warning => "导入失败"}
+    end
+    redirect_to excel_courses_path, flash: flash
+  end
+
   #-------------------------for students----------------------
 
   def list
@@ -148,7 +162,19 @@ class CoursesController < ApplicationController
     redirect_to courses_path, flash: flash
   end
 
+  def excel_out
+    @course=Course.find_by_id(params[:id])
+    if @course.update_attributes(course_params)
+      flash={:info => " 导出成功"}
+    else
+      flash={:warning => "导出失败"}
+    end
+    redirect_to excel_courses_path, flash: flash
+  end
 
+  def show
+    @course = Course.find(params[:id])
+  end
   #-------------------------for both teachers and students----------------------
 
   def index
@@ -246,7 +272,7 @@ class CoursesController < ApplicationController
 
 
   def course_params
-    params.require(:course).permit(:course_code, :avatar, :name, :course_type, :teaching_type, :exam_type,
+    params.require(:course).permit(:course_code, :excel, :avatar, :name, :course_type, :teaching_type, :exam_type,
                                    :credit, :limit_num, :class_room, :course_time, :course_week, :course_introduction)
   end
 end

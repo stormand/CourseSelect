@@ -66,6 +66,7 @@
         <% if teacher_logged_in? %>
             <a data-toggle="collapse" data-parent="#accordion" href="#GradeCollapse"><span class="glyphicon glyphicon-user"></span>
               成绩管理</a>
+
         <% end %>
 
         <% if student_logged_in? %>
@@ -79,6 +80,12 @@
       <div class="list-group">
 
         <% if teacher_logged_in? %>
+            <li class="list-group-item">
+              <%= link_to excel_courses_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> excel
+              <% end %>
+            </li>
+
             <% current_user.teaching_courses.each do |course| %>
                 <li class="list-group-item">
                   <%= link_to grades_path(course_id: course.id), :method => :get do %>

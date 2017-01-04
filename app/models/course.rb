@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
+  mount_uploader :excel, ExcelUploader
 
   has_many :grades
   has_many :users, through: :grades
@@ -9,6 +10,5 @@ class Course < ActiveRecord::Base
 
   validates :name, :course_type, :course_time, :course_week,
             :class_room, :credit, :teaching_type, :exam_type, presence: true, length: {maximum: 50}
-
 
 end

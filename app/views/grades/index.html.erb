@@ -34,7 +34,65 @@
                   <td><%= grade.user.department %></td>
                   <td><%= grade.course.name %></td>
                   <td><%= grade.grade %></td>
+                  <!--
+                  <td><%= grade.course.excel %></td>
+                  <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                    <title>JavaScript遍历table</title>
+                    <style type="text/css">
+                      tr td,tr th{
+                        border:#CCC 1px solid;
+                      }
+                    </style>
+                    <script type="text/javascript">
+                      /**
+                       * JavaScript遍历table
+                       */
+                      function eachTableRow()
+                      {
+//获取table序号
+                        var tab=document.getElementById("course.excel");
+//获取行数
+                        var rows=tab.rows;
+//遍历行
+                        for(var i=1;i<rows.length;i++)
+                        {
+//遍历表格列
+                          for(var j=0;j<rows[i].cells.length;j++)
+                          {
+//打印某行某列的值
+                            alert("第"+(i+1)+"行，第"+(j+1)+"列的值是:"+rows[i].cells[j].innerHTML);
+                          }
+                        }
+                      }
+                    </script>
+                  </head>
 
+                  <body>
+                  <table id="tab" cellpadding="0" cellspacing="0" style="width:50%; text-align:center; border:#CCC 1px solid;">
+                    <tr style="border:#CCC 1px solid;">
+                      <th>学号</th>
+                      <th>姓名</th>
+                      <th>年龄</th>
+                      <th>性别</th>
+                    </tr>
+                    <tr>
+                      <td>2014010101</td>
+                      <td>张思思</td>
+                      <td>20</td>
+                      <td>女</td>
+                    </tr>
+                    <tr>
+                      <td>2014010102</td>
+                      <td>立三</td>
+                      <td>21</td>
+                      <td>男</td>
+                    </tr>
+
+                  </table>
+                  <input type="button" value="遍历" onclick="eachTableRow()"/>
+                  </body>
+                  -->
                   <% if teacher_logged_in? %>
                       <%= form_for grade, url: grade_url(id: grade.id, course_id: grade.course.id), method: :patch do |f| %>
                           <td><%= f.text_field :grade %></td>
