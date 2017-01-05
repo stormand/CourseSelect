@@ -79,7 +79,7 @@
                       <% else %>
                           <td><%= link_to "是",isdegree_course_path(course), class: 'btn btn-xs btn-info' %></td>
                       <% end %>
-                      <td><td><a class="btn btn-xs btn-success" href=<%="#{Rails.root}#{course.excel}"%> >下载最新资料</a></td></td>
+                      <td><td><a class="btn btn-xs btn-success" href=<%="https://courseselectofstormand.herokuapp.com#{course.excel}"%> >下载最新资料</a></td></td>
                       <td><%= course.excel %></td>
                   <% end %>
                 </tr>
