@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
+  mount_uploader :excel, ExcelUploader
 
   has_many :grades
   has_many :users, through: :grades

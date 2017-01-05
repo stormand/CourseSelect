@@ -57,6 +57,20 @@ class CoursesController < ApplicationController
     redirect_to courses_path, flash: {:success => "已经成功关闭该课程:#{ @course.name}"}
   end
 
+  def excel
+    @course= current_user.teaching_courses
+  end
+
+  def excel_in
+    @course = Course.find_by_id(params[:id])
+    if @course.update_attributes(course_params)
+      flash={:info => " 导入成功"}
+    else
+      flash={:warning => "导入失败"}
+    end
+    redirect_to excel_courses_path, flash: flash
+  end
+
   #-------------------------for students----------------------
 
   def list

@@ -28,6 +28,7 @@
                   <th>编辑课程</th>
                   <th>打开课程</th>
                   <th>删除课程</th>
+                  <th>上传最新资料</th>
             <% elsif student_logged_in? %>
                   <th>删除课程</th>
                   <th>是否选为学位课</th>
@@ -52,6 +53,11 @@
                           <td><%= link_to "打开", open_course_url(course), class: 'btn btn-xs btn-info' %></td>
                         <% end %>
                       <td><%= link_to "删除", course_path(course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
+
+                      <td><%= f.file_field :excel %>
+                        <%= f.hidden_field :excel_cache %></td>
+
+
                   <% elsif student_logged_in? %>
                       <td><%= link_to "删除", quit_course_path(course), class: 'btn-sm btn-danger' %></td>
                       <% if course.degree %>
