@@ -62,15 +62,15 @@ class CoursesController < ApplicationController
   end
 
   def excel_in
-      @course1 = Course.find_by_id(params[:id])
-      if @course1.update_attributes(course_params)
-        flash={:info => " 导入成功"}
-      else
-        flash={:warning => "导入失败"}
-      end
-    @course=current_user.teaching_courses
-      @params=params
-    redirect_to courses_path, flash: flash
+
+
+    @course = Course.find_by_id(params[:id])
+    if @course.update_attributes(course_params)
+      flash={:info => " 导入成功"}
+    else
+      flash={:warning => "导入失败"}
+    end
+    redirect_to excel_courses_path, flash: flash
 
   end
 
@@ -165,7 +165,19 @@ class CoursesController < ApplicationController
     redirect_to courses_path, flash: flash
   end
 
+  def excel_out
+    @course=Course.find_by_id(params[:id])
+    if @course.update_attributes(course_params)
+      flash={:info => " 导出成功"}
+    else
+      flash={:warning => "导出失败"}
+    end
+    redirect_to excel_courses_path, flash: flash
+  end
 
+  def show
+    @course = Course.find(params[:id])
+  end
   #-------------------------for both teachers and students----------------------
 
   def index

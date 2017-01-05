@@ -45,6 +45,7 @@
                   <td><%= course.credit %></td>
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
+                  <td><%course.excel%></td>
 
                   <% if teacher_logged_in? %>
                       <td><%= link_to "编辑", edit_course_url(course), class: 'btn btn-xs btn-info' %></td>
@@ -74,14 +75,21 @@
 
                   <% elsif student_logged_in? %>
                       <td><%= link_to "删除", quit_course_path(course), class: 'btn-sm btn-danger' %></td>
+
+                      <td><a class="btn btn-xs btn-success" href=<%="http://localhost:3000#{course.excel}"%> >下载最新资料</a></td>
+
                       <% if course.degree %>
                           <td><%= link_to "否", nodegree_course_path(course), class: 'btn btn-xs btn-danger' %></td>
                       <% else %>
                           <td><%= link_to "是",isdegree_course_path(course), class: 'btn btn-xs btn-info' %></td>
                       <% end %>
+
                       <td><a class="btn btn-xs btn-success" href=<%="https://courseselectofstormand.herokuapp.com#{course.excel}"%> >下载最新资料</a></td></td>
                       <td><%= course.excel %></td>
+
                   <% end %>
+
+
                 </tr>
             <% end %>
             </tbody>
