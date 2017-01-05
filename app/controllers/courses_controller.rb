@@ -68,7 +68,7 @@ class CoursesController < ApplicationController
     else
       flash={:warning => "导入失败"}
     end
-    redirect_to excel_courses_path, flash: flash
+    render 'index', flash: flash
   end
 
   #-------------------------for students----------------------
