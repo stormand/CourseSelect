@@ -86,6 +86,7 @@
               <% end %>
             </li>
 
+
             <% current_user.teaching_courses.each do |course| %>
                 <li class="list-group-item">
                   <%= link_to grades_path(course_id: course.id), :method => :get do %>

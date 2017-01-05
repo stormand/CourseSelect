@@ -34,15 +34,10 @@ Rails.application.routes.draw do
     end
     collection do
       get :list
-      get :excel
-
-    end
-    collection do
-      get :list
       get :search
       get :refresh_search
       get :credit #add credit route
-
+      get :excel
     end
   end
 
