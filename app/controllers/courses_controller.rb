@@ -263,7 +263,7 @@ class CoursesController < ApplicationController
 
 
   def course_params
-    params.require(:course).permit(:course_code, :avatar, :name, :course_type, :teaching_type, :exam_type,
+    params.require(:course).permit(:course_code, :excel, :avatar, :name, :course_type, :teaching_type, :exam_type,
                                    :credit, :limit_num, :class_room, :course_time, :course_week, :course_introduction)
   end
 end
