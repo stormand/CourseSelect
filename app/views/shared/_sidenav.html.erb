@@ -79,6 +79,13 @@
       <div class="list-group">
 
         <% if teacher_logged_in? %>
+            <li class="list-group-item">
+              <%= link_to excel_courses_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> excel
+              <% end %>
+            </li>
+
+
             <% current_user.teaching_courses.each do |course| %>
                 <li class="list-group-item">
                   <%= link_to grades_path(course_id: course.id), :method => :get do %>

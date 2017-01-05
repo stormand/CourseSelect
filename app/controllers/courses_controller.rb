@@ -62,13 +62,16 @@ class CoursesController < ApplicationController
   end
 
   def excel_in
-    @course = Course.find_by_id(params[:id])
-    if @course.update_attributes(course_params)
-      flash={:info => " 导入成功"}
-    else
-      flash={:warning => "导入失败"}
-    end
-    render 'index', flash: flash
+      @course1 = Course.find_by_id(params[:id])
+      if @course1.update_attributes(course_params)
+        flash={:info => " 导入成功"}
+      else
+        flash={:warning => "导入失败"}
+      end
+    @course=current_user.teaching_courses
+      @params=params
+    redirect_to courses_path, flash: flash
+
   end
 
   #-------------------------for students----------------------
