@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207102921) do
+
+ActiveRecord::Schema.define(version: 20161228082748) do
 
 
   # These are extensions that must be enabled in order to support this database
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20161207102921) do
     t.string   "avatar"
     t.boolean  "open",                default: false
     t.boolean  "degree",              default: false
+    t.string   "excel"
 
   end
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'excel/parse'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -27,13 +29,17 @@ Rails.application.routes.draw do
       get :classtable
       get :isdegree #add route isdegree
       get :nodegree #add route nodegree
+      patch :excel_in
+      patch :excel_out
     end
     collection do
       get :list
       get :search
       get :refresh_search
       get :credit #add credit route
+      get :excel
     end
+
   end
 
   resources :grades, only: [:index, :update]
