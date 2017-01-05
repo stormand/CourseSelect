@@ -54,8 +54,18 @@
                         <% end %>
                       <td><%= link_to "删除", course_path(course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
 
-                      <td><%= f.file_field :excel %>
-                        <%= f.hidden_field :excel_cache %></td>
+                      <td><%= form_for course, url: excel_in_course_path(course) , html: {class: 'form-horizontal', role: 'form'} do |f| %>
+                            <div class="form-group">
+                              <%= f.label "上传文件", class: 'col-sm-3 control-label' %>
+                              <div class="col-sm-3">
+                                <div class="input-group">
+                                  <%= f.file_field :excel %>
+                                  <%= f.hidden_field :excel_cache %>
+                                </div>
+                              </div>
+                            </div>
+                            <%= f.submit '提交', class: "btn btn-success btn-block" %>
+                        <% end %></td>
 
 
                   <% elsif student_logged_in? %>
