@@ -48,7 +48,7 @@
       <div class="col-sm-9">
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
-          <%= f.select :limit_num ,options_for_select(['40', '100','200','350','500']), {}, class: 'form-control'  %>
+          <%= f.text_field :limit_num, class: 'form-control', placeholder: "请输入0到1000的整数" %>
         </div>
       </div>
     </div>
